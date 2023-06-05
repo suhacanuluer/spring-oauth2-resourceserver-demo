@@ -1,5 +1,31 @@
-spring.datasource.url=jdbc:postgresql://localhost:3306/demodb
-spring.datasource.username=root
-spring.datasource.password=Ass122...
-spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
-spring.jpa.hibernate.ddl-auto=create
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  config:
+    import: env.properties
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: ${GOOGLE_CLIENT_ID}
+            clientSecret: ${GOOGLE_CLIENT_SECRET}
+      resourceserver:
+        jwt:
+          issuer-uri: https://accounts.google.com
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+
